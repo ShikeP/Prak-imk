@@ -1,23 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>hello world</title>
+  <meta charset="UTF-8">
+  <title>Validasi Email dan Password</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input { display: block; margin-bottom: 10px; padding: 8px; width: 300px; }
+    .error { color: red; }
+    .success { color: green; }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Selamat Datang</h1>
-    </header>
 
-    <main>
-        <p>Haleluya</p>
-    </main>
+  <h2>Form Registrasi</h2>
 
-    <footer>
-        <p>Victor Samosir</p>
-    </footer>
+  <form id="form">
+    <label>Email:</label>
+    <input type="text" id="email" placeholder="nama@example.com" required>
+
+    <label>Password:</label>
+    <input type="password" id="password" placeholder="Minimal 8 karakter" required>
+
+    <button type="submit">Daftar</button>
+
+    <div id="message"></div>
+  </form>
+
+  <script>
+    document.getElementById("form").addEventListener("submit", function(e) {
+      e.preventDefault(); // Mencegah submit form bawaan
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const message = document.getElementById("message");
+
+      // Regex untuk validasi email
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+      // Regex untuk password kuat
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+      if (!emailRegex.test(email)) {
+        message.innerHTML = "<p class='error'>Format email tidak valid.</p>";
+      } else if (!passwordRegex.test(password)) {
+        message.innerHTML = "<p class='error'>Password harus minimal 8 karakter, mengandung huruf besar, huruf kecil, angka, dan simbol.</p>";
+      } else {
+        message.innerHTML = "<p class='success'>Registrasi berhasil!</p>";
+      }
+    });
+  </script>
 
 </body>
 </html>
